@@ -42,8 +42,8 @@ void zlog_event_del(zlog_event_t * a_event)
 {
 	zc_assert(a_event,);
 	if (a_event->time_caches) free(a_event->time_caches);
+    zc_debug("zlog_event_del[%p]", a_event);
 	free(a_event);
-	zc_debug("zlog_event_del[%p]", a_event);
 	return;
 }
 
@@ -60,6 +60,9 @@ zlog_event_t *zlog_event_new(int time_cache_count)
 	a_event->time_caches = calloc(time_cache_count, sizeof(zlog_time_cache_t));
 	if (!a_event->time_caches) {
 		zc_error("calloc fail, errno[%d]", errno);
+        if (a_event != NULL) {
+            free(a_event);
+        }
 		return NULL;
 	}
 	a_event->time_cache_count = time_cache_count;

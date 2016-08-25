@@ -962,8 +962,8 @@ void zlog_rule_del(zlog_rule_t * a_rule)
 		zc_arraylist_del(a_rule->archive_specs);
 		a_rule->archive_specs = NULL;
 	}
+    zc_debug("zlog_rule_del[%p]", a_rule);
 	free(a_rule);
-	zc_debug("zlog_rule_del[%p]", a_rule);
 	return;
 }
 

@@ -351,6 +351,9 @@ static int zlog_conf_parse_line(zlog_conf_t * a_conf, char *line, int *section)
 	if (line[0] == '[') {
 		int last_section = *section;
 		nscan = sscanf(line, "[ %[^] \t]", name);
+        if (nscan) {
+            // noop
+        }
 		if (STRCMP(name, ==, "global")) {
 			*section = 1;
 		} else if (STRCMP(name, ==, "levels")) {
@@ -418,6 +421,9 @@ static int zlog_conf_parse_line(zlog_conf_t * a_conf, char *line, int *section)
 		memset(word_3, 0x00, sizeof(word_3));
 		nread = 0;
 		nscan = sscanf(name, "%s%n%s%s", word_1, &nread, word_2, word_3);
+        if (nscan) {
+            //noop
+        }
 
 		if (STRCMP(word_1, ==, "strict") && STRCMP(word_2, ==, "init")) {
 			/* if environment variable ZLOG_STRICT_INIT is set

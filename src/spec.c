@@ -254,8 +254,8 @@ static int zlog_spec_write_usrmsg(zlog_spec_t * a_spec, zlog_thread_t * a_thread
 		}
 	} else if (a_thread->event->generate_cmd == ZLOG_HEX) {
 		int rc;
-		long line_offset;
-		long byte_offset;
+		long line_offset = 0;
+		long byte_offset = 0;
 
 		/* thread buf start == null or len <= 0 */
 		if (a_thread->event->hex_buf == NULL) {
@@ -268,8 +268,8 @@ static int zlog_spec_write_usrmsg(zlog_spec_t * a_spec, zlog_thread_t * a_thread
 			goto zlog_hex_exit;
 		}
 
-		line_offset = 0;
-		byte_offset = 0;
+		//line_offset = 0;
+		//byte_offset = 0;
 
 		while (1) {
 			unsigned char c;
@@ -447,8 +447,8 @@ static int zlog_spec_parse_print_fmt(zlog_spec_t * a_spec)
 void zlog_spec_del(zlog_spec_t * a_spec)
 {
 	zc_assert(a_spec,);
+    zc_debug("zlog_spec_del[%p]", a_spec);
 	free(a_spec);
-	zc_debug("zlog_spec_del[%p]", a_spec);
 }
 
 /* a spec may consist of

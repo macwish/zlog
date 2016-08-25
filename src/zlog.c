@@ -842,16 +842,18 @@ void zlog(zlog_category_t * category,
 
 	zlog_fetch_thread(a_thread, exit);
 
-	va_start(args, format);
-	zlog_event_set_fmt(a_thread->event, category->name, category->name_len,
-		file, filelen, func, funclen, line, level,
-		format, args);
-	if (zlog_category_output(category, a_thread)) {
-		zc_error("zlog_output fail, srcfile[%s], srcline[%ld]", file, line);
-		va_end(args);
-		goto exit;
-	}
-	va_end(args);
+    if (category != NULL) {
+        va_start(args, format);
+        zlog_event_set_fmt(a_thread->event, category->name, category->name_len,
+            file, filelen, func, funclen, line, level,
+            format, args);
+        if (zlog_category_output(category, a_thread)) {
+            zc_error("zlog_output fail, srcfile[%s], srcline[%ld]", file, line);
+            va_end(args);
+            goto exit;
+        }
+        va_end(args);
+    }
 
 	if (zlog_env_conf->reload_conf_period &&
 		++zlog_env_reload_conf_count > zlog_env_conf->reload_conf_period ) {

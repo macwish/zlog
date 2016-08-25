@@ -62,6 +62,7 @@ static int zc_arraylist_expand_inner(zc_arraylist_t * a_list, int max)
 	int diff_size;
 
 	new_size = zc_max(a_list->size * 2, max);
+    new_size = new_size > 0 ? new_size : 2;
 	tmp = realloc(a_list->array, new_size * sizeof(void *));
 	if (!tmp) {
 		zc_error("realloc fail, errno[%d]", errno);
